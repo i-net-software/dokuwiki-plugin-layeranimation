@@ -3,7 +3,7 @@
 base   layeranimation
 author i-net software
 email  tools@inetsoftware.de
-date   2009-07-13
+date   2014-06-04
 name   Layer Animation Plugin
 desc   Creates an animation out of layers
 url    http://www.inetsoftware.de/other-products/dokuwiki-plugins/layer-animation
