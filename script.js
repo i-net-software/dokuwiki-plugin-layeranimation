@@ -13,7 +13,7 @@
 		this.itemButtonClicked = false;
 		this.layerPlayingTimeOut = null;
 		this.root = rootNode;
-		this.layerList;
+		this.layerList = null;
 		this.layer = new Array();
 		this.currentLayer = 1;
 		this.currentItem = 0;
