@@ -99,8 +99,8 @@
 					self.currentItem = 0;
 					timeout = self.layer[layerNr].waitTime || self.waitTime;
 					
-					// alert("waiting for " + timeout);
-					
+					$(document).trigger("layeranimation.layerDone", self.layer);
+										
 					if ( ! self.isPlaying || self.layer.length == 1 ) {
 						self.isRunning = false;
 						return;
@@ -214,13 +214,15 @@
 						} else {
 							self.currentLayer = 0;
 						}
-						
+
 						// disable hover re-enable function
 						self.itemButtonClicked = true;
 						window.setTimeout(function() {
 							// start playing
 							self.Resume();
 						}, timeout);
+
+                        $(document).trigger("layeranimation.layerDone", self.layer);
 					} else {
 					
 						// start playing
