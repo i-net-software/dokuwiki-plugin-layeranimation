@@ -12,7 +12,10 @@
 		this.isPlaying = true;
 		this.itemButtonClicked = false;
 		this.layerPlayingTimeOut = null;
+
 		this.root = rootNode;
+		rootNode[0].layerAnimation = self;
+		
 		this.layerList = null;
 		this.layer = new Array();
 		this.currentLayer = 1;
@@ -112,20 +115,23 @@
 			self.layerPlayingTimeOut = window.setTimeout( self.run, timeout);
 		};
 		
-		this.resetLayer = function(layer) {
+		this.resetLayer = function(layer, alsoCurrent) {
 		
 			if ( layer < 0 ) { layer = self.layer.length-1; }
 			if ( !self.layer[layer] ) { return; }
 			
+			var currentLayer = alsoCurrent ? ( self.currentLayer-1 < 0 ? self.layer.length-1 : self.currentLayer-1 ) : self.currentLayer;
+			var offset = layer == currentLayer ? 0 : self.offsetWidth;
+			
 			$(self.layer[layer].items).each(function(){
-				this.elem.css({'left': this.direction * self.offsetWidth});
+				this.elem.css({'left': this.direction * offset});
 				this.currentTime = self.scrollTime;
 			});
 			
 			// Special for layer one
 			self.layer[layer].elem.css({
 										'z-index': self.zIndex +100,
-										'left' : self.layer[layer].items[0].direction * self.offsetWidth
+										'left' : self.layer[layer].items[0].direction * offset
 										}).fadeTo(0, 1);
 		};
 		
@@ -276,6 +282,14 @@
 			self.isPlaying = true;
 			if ( !self.isRunning ) self.layerPlayingTimeOut = window.setTimeout( self.run, 2000);
 		};
+		
+		this.togglePlayState = function( active ) {
+    		if ( active) {
+        		self.Resume();
+    		} else {
+        		self.Pause();
+        	}
+		};
 	
 		this.init = function() {
 			
@@ -371,13 +385,58 @@
 	        };
 	        
 	        $(document).bind('scroll resize touchmove touchend', onScroolResize);
-		};		
+		};
+		
+		this.toggleCSSSaveState = function( $elem, save ) {
+    		// Stow away or get the current css
+
+            var currentStyle = (save?'':'save-') + 'style';
+            var saveStyle = (!save?'':'save-') + 'style';
+
+    		$elem.attr(saveStyle, $elem.attr(currentStyle));
+    		$elem.attr(currentStyle, '');
+		};
+		
+		this.activationStatus = function(activate) {
+    		
+            if ( self.isPlaying == activate ) {
+                return;
+            }
+            
+    		// Layer selection list
+    		self.layerList.toggle( activate );
+    		self.root.removeClass( (activate?'no':'') + 'scripting').addClass( (!activate?'no':'') + 'scripting');
+
+			// Each Layer
+			self.offsetWidth = activate ? 0 : self.offsetWidth;
+			$(self.layer).each(function(index)
+			{
+    			self.toggleCSSSaveState( this.elem, !activate );
+    			$(this.items).each(function(){
+        			self.toggleCSSSaveState( this.elem, !activate );
+    			});
+
+                if ( activate ) {
+                    if ( self.offsetWidth == 0 ) {
+                        self.offsetWidth = $(this.elem).width(); // Offset from the first layer.
+                    }
+                    self.resetLayer(index, true);
+                }
+            });
+
+    		self.togglePlayState( activate );
+		};
 	};
 
-	$(function(){
-		$('div.layeranimation').each(function(){
+    var initialize = function() {
+        $('div.layeranimation').each(function(){
 			(new layeranimation($(this))).init();
+		}).on('layeranimation.activate', function(e, activate){
+    		this.layerAnimation.activationStatus(activate);
 		});
-	});
+    };
+
+    // On load
+	$(initialize);
 
 })(jQuery);

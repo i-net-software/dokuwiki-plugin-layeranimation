@@ -1,196 +1,179 @@
-#empty {}
+.layeranimation {
 
-.layeranimation
-{
     position: relative;
 	padding-right: 20px;
-}
-
-.layeranimation.noscripting
-{
-	height: auto !important;
-}
-
-
-.layeranimation.scripting
-{
-	padding: 0px;
-}
-
-.layeranimation div.layer
-{
-    position: relative;
-
-	opacity: 1;
-	-webkit-transition-property: opacity;
-	-webkit-transition-duration: 2s;
-}
-
-.layeranimation.scripting div.layer, .layeranimation.scripting div.layer div.item
-{
-    top: 0;
-	position: absolute;
-	height: 100%;
 	
-	float: none;
-}
+	&.noscripting {
+    	height: auto !important;
+    	
+        div.layer:not(:nth-last-child(2)) {
+            border-bottom: 1px solid __lightgray__;
+        }
+        
+        div.layer.fixed {
+            display: none !important;
+        }
+    }
 
-.layeranimation div.layer div.item
-{
-	position: absolute;
-	box-sizing: border-box;
-	-moz-box-sizing: border-box;
-}
+    div.layer, div.layer div.item {
+        clear: both;
+        float: left;
+        width: 100%;
+    }
 
-.layeranimation div.box {
-	margin-bottom: 20px;
-}
-
-.layeranimation div.layer:last-child div.box, .layeranimation.scripting div.box {
-	margin-bottom : 0px;
-}
-
-.layeranimation.scripting {
-	overflow: hidden;
-	border-bottom: 1px solid __lightgray__;
-	
-	position: relative;
-	
-	padding: 0px;
-	margin-left: auto;
-	margin-right: auto;
-}
-
-.layeranimation div.layer.fixed, .layeranimation.scripting div.layer, .layeranimation div.item.fixed {
-	display: none;
-}
-
-.layeranimation div.layer, .layeranimation div.layer div.item
-{
-    clear: both;
-    float: left;
-
-	width: 100%;
-	
-	overflow: hidden;
-	left: 0px;
-
-	margin: 0px;
-	padding: 0px;
-}
-
-.layeranimation.scripting div.layer div.item {
-	left: -100%;
-}
-
-.layeranimation.scripting div.layer div.item.right {
-	left: 100%;
-}
-
-.layeranimation.scripting div.layer.fixed div.item {
-	left: 0px;
-}
-
-.layeranimation.scripting div.layer div.item.first {
-	background-color: __background__;
-}
-
-.layeranimation.scripting ul.layeranimation_layer {
-	position: absolute;
-	bottom: 0px;
-	left: 0px;
-
-	padding: 0px;
-	margin: 0px;
-	z-index: 200;
-}
-
-.layeranimation {
-	overflow: auto;
-}
-
-.layeranimation ul.layeranimation_layer {
-	display: none;
-}
-
-.layeranimation ul.layeranimation_layer li {
-
-	float: left;
-	background: #49473E;
-	color: #fff;
-	
-	width: 15px;
-	height: 15px;
-	
-	font-size: 9px;
-	text-align: center;
-
-	padding: 0px;
-	margin: 0px;
-	
-	list-style: none;
-	
-	cursor: pointer;
-}
-
-.layeranimation.scripting ul.layeranimation_layer {
-	display: block;
-}
-
-.layeranimation ul.layeranimation_layer li:hover {
-	background-color: #577B5D;
-}
-
-.layeranimation ul.layeranimation_layer li.active {
-	background: #716D60;
-}
-
-.layeranimation ul.layeranimation_layer li.play-pause, .layeranimation ul.layeranimation_layer li.play-pause.active:hover {
-	background-image: url('images/play-pause.gif');
-	background-position: 1px 1px;
-}
-
-.layeranimation ul.layeranimation_layer li.play-pause:hover, .layeranimation ul.layeranimation_layer li.play-pause.active {
-	background-position: 1px 13px;
-}
-
-.layeranimation ul.layeranimation_layer li.play-pause.active {
-	background-color: #7B5857;
-}
-
-.layeranimation div.skip
-{
-    position: absolute;
-    bottom: 5%;
-    padding: 10px 20px;
+    div.layer {
+        position: relative;
     
-    background: #fff;
-    opacity: 0;
-    
-    border-radius: 5px;
-    box-shadow: 0px 0px 5px #000;
-    
-    z-index: 300;
-    
-    transition: all 0.15s ease-in-out;
-    -moz-transition: all 0.15s ease-in-out; /* Firefox 4 */
-    -webkit-transition: all 0.15s ease-in-out; /* Safari and Chrome */
-    -o-transition: all 0.15s ease-in-out; /* Opera */
-    
-    cursor: pointer;
-}
+    	opacity: 1;
+    	-webkit-transition-property: opacity;
+    	-webkit-transition-duration: 2s;
+    	
+    	div.item {
+        	box-sizing: border-box;
+        	-moz-box-sizing: border-box;
+        }
+    }
 
-.layeranimation:hover div.skip
-{
-    opacity: 0.3;
-}
+    &.scripting {
+    	overflow: hidden;
+    	border-bottom: 1px solid __lightgray__;
+    	
+    	position: relative;
+    	
+    	padding: 0px;
+    	margin-left: auto;
+    	margin-right: auto;
 
-.layeranimation div.skip.previous
-{
-    left: 2%;
-}
 
-.layeranimation div.skip.next
-{
-    right: 2%;
+        div.layer, div.layer div.item {
+            top: 0;
+        	position: absolute;
+        	height: 100%;
+        	
+        	overflow: hidden;
+        	left: 0px;
+        
+        	margin: 0px;
+        	padding: 0px;
+        }
+
+        div.layer div.item {
+        	left: -100%;
+        	position: absolute;
+        	
+        	&.first {
+            	background-color: __background__;
+            }
+        }
+
+        div.layer div.item.right {
+        	left: 100%;
+        }
+
+        div.layer.fixed div.item {
+        	left: 0px;
+        }
+
+        ul.layeranimation_layer {
+            display: block;
+        	position: absolute;
+        	bottom: 0px;
+        	left: 0px;
+        
+        	padding: 0px;
+        	margin: 0px;
+        	z-index: 200;
+        }
+    }
+    
+    div.box {
+    	margin-bottom: 20px;
+    }
+
+    div.layer:last-child div.box, &.scripting div.box {
+    	margin-bottom : 0px;
+    }
+
+
+    div.layer.fixed, &.scripting div.layer, div.item.fixed {
+    	display: none;
+    }
+
+    ul.layeranimation_layer {
+    	display: none;
+    	
+    	li {
+        
+        	float: left;
+        	background: #49473E;
+        	color: #fff;
+        	
+        	width: 15px;
+        	height: 15px;
+        	
+        	font-size: 9px;
+        	text-align: center;
+        
+        	padding: 0px;
+        	margin: 0px;
+        	
+        	list-style: none;
+        	
+        	cursor: pointer;
+        	
+        	&:hover {
+            	background-color: #577B5D;
+            }
+            
+            &.active {
+            	background: #716D60;
+            }
+
+            &.play-pause, &.play-pause.active:hover {
+            	background-image: url('images/play-pause.gif');
+            	background-position: 1px 1px;
+            }
+
+            &.play-pause:hover, &.play-pause.active {
+            	background-position: 1px 13px;
+            }
+            
+            .layeranimation ul.layeranimation_layer li.play-pause.active {
+            	background-color: #7B5857;
+            }
+        }
+    }
+    
+    div.skip {
+        position: absolute;
+        bottom: 5%;
+        padding: 10px 20px;
+        
+        background: #fff;
+        opacity: 0;
+        
+        border-radius: 5px;
+        box-shadow: 0px 0px 5px #000;
+        
+        z-index: 300;
+        
+        transition: all 0.15s ease-in-out;
+        -moz-transition: all 0.15s ease-in-out; /* Firefox 4 */
+        -webkit-transition: all 0.15s ease-in-out; /* Safari and Chrome */
+        -o-transition: all 0.15s ease-in-out; /* Opera */
+        
+        cursor: pointer;
+        
+        &.previous {
+            left: 2%;
+        }
+        
+        &.next {
+            right: 2%;
+        }
+    }
+    
+    &:hover div.skip {
+        opacity: 0.3;
+    }
 }
