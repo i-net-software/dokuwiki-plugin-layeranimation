@@ -355,6 +355,9 @@
 					}
 					
 					innerLayer.items.push(innerItem);
+					innerItem.elem.find('img').on('load', function(e) {
+    					e.currentTarget.loaded = true;
+					});
 				});
 			});
 			
@@ -397,11 +400,50 @@
     		$elem.attr(currentStyle, '');
 		};
 		
+		this.prevWidth = null;
+		this.resizeLayers = function() {
+    		
+    		// Only on changes of the width.
+    		var newWidth = this.root.width();
+    		if ( this.prevwidth == newWidth ) { return; }
+    		this.prevWidth = newWidth;
+    		
+			// Each Layer
+			$.each(self.layer, function(index)
+			{
+    			var currentLayer = this;
+    			var setHeight = function() {
+        			var layerHeight = 0;
+        			$.each(currentLayer.items, function(){
+            			layerHeight = Math.max( layerHeight, this.elem.height() );
+        			});
+    
+                    currentLayer.elem.height(layerHeight);
+                };
+
+                var checkImageLoadedStatus = function() {
+            		// check load status of images
+            		var loaded = true;
+            		$.each(currentLayer.items, function(){
+                		this.elem.find('img').each(function(){
+                            loaded = loaded && this.loaded;
+                		});
+                    });
+                    
+                    if ( !loaded ) {
+                        window.setTimeout( checkImageLoadedStatus, 100 );
+                    } else {
+                       setHeight(); 
+                    }
+                };
+                
+                checkImageLoadedStatus();
+            });
+		};
+
 		this.activationStatus = function(activate) {
     		
-            if ( self.isPlaying == activate ) {
-                return;
-            }
+    		self.togglePlayState( activate );
             
     		// Layer selection list
     		self.layerList.toggle( activate );
@@ -424,7 +466,7 @@
                 }
             });
 
-    		self.togglePlayState( activate );
+            self.resizeLayers();
 		};
 	};
 
@@ -433,6 +475,8 @@
 			(new layeranimation($(this))).init();
 		}).on('layeranimation.activate', function(e, activate){
     		this.layerAnimation.activationStatus(activate);
+		}).on('layeranimation.resize', function(e, activate){
+    		this.layerAnimation.resizeLayers();
 		});
     };
 
