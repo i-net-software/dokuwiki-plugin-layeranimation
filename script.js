@@ -404,7 +404,7 @@
 
             // Only on changes of the width.
             var newWidth = this.root.width();
-            if ( this.prevwidth == newWidth ) { return; }
+            if ( this.prevWidth == newWidth ) { return; }
             this.prevWidth = newWidth;
 
             // Each Layer
