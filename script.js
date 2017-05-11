@@ -426,7 +426,7 @@
             		var loaded = true;
             		$.each(currentLayer.items, function(){
                 		this.elem.find('img').each(function(){
-                            loaded = loaded && this.loaded;
+                            loaded = loaded && (this.loaded || self.IsImageOk(this));
                 		});
                     });
                     
@@ -440,6 +440,27 @@
                 checkImageLoadedStatus();
             });
 		};
+		
+		this.IsImageOk = function(img) {
+            // http://stackoverflow.com/questions/1977871/check-if-an-image-is-loaded-no-errors-in-javascript
+            // During the onload event, IE correctly identifies any images that
+            // weren’t downloaded as not complete. Others should too. Gecko-based
+            // browsers act like NS4 in that they report this incorrectly.
+            if (!img.complete) {
+                return false;
+            }
+        
+            // However, they do have two very useful properties: naturalWidth and
+            // naturalHeight. These give the true size of the image. If it failed
+            // to load, either of these should be zero.
+        
+            if (typeof img.naturalWidth !== "undefined" && img.naturalWidth === 0) {
+                return false;
+            }
+        
+            // No other way of checking: assume it’s ok.
+            return true;
+        };
 
 		this.activationStatus = function(activate) {
     		
