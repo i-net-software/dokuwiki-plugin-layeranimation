@@ -13,20 +13,20 @@ The lower left also shows a button for each layer. Clicking the button skips to 
 
 ```
 <animation %HEIGHT% [%CLASS%]>
-	<layer %OPTION% [%CLASS%]>
-		<item %OPTION%[?%CLIP%]>
-			This is all **DokuWiki [[Content]]**
-			You can even use other plugins and images.
-		</item>
+    <layer %OPTION% [%CLASS%]>
+        <item %OPTION%[?%CLIP%]>
+            This is all **DokuWiki [[Content]]**
+            You can even use other plugins and images.
+        </item>
 
-		<item>
-			...
-		</item>
-	</layer>
+        <item>
+            ...
+        </item>
+    </layer>
 
-	<layer>
-		...
-	</layer>
+    <layer>
+        ...
+    </layer>
 </animation>
 ```
 
