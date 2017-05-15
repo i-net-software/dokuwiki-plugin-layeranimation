@@ -14,8 +14,6 @@ require_once(DOKU_PLUGIN.'syntax.php');
 
 class syntax_plugin_layeranimation_item extends DokuWiki_Syntax_Plugin {
 
-    private $currentLayer = 0;
-
     function getType(){ return 'item';}
     function getAllowedTypes() { return array('container','substition','protected','disabled','formatting','paragraphs'); }
     function getPType(){ return 'block';}
