@@ -79,7 +79,7 @@ class syntax_plugin_layeranimation_animation extends DokuWiki_Syntax_Plugin {
 
                     $conf['layeranimation']['currentanimation']['height'] = $data['height'];
                     $renderer->doc .= '<noscript><div class="layeranimation_disabled"></div></noscript>';
-                    $renderer->doc .= '<div class="layeranimation' . $data['class'] . ' noscripting' . (method_exists($renderer, "finishSectionEdit") ? ' ' . $renderer->startSectionEdit($pos, array( 'target' => 'section', 'name' => 'layeranimation') : "") . '" style="height: ' . $data['height'] . 'px">' . "\n";
+                    $renderer->doc .= '<div class="layeranimation' . $data['class'] . ' noscripting' . (method_exists($renderer, "finishSectionEdit") ? ' ' . $renderer->startSectionEdit($pos, array( 'target' => 'section', 'name' => 'layeranimation')) : "") . '" style="height: ' . $data['height'] . 'px">' . "\n";
 
                     break;
                 case 'animation__end' :
