@@ -283,10 +283,13 @@
         };
 
         this.togglePlayState = function( active ) {
-            if ( active) {
+            if ( active ) {
+                self.itemButtonClicked = false;
                 self.Resume();
             } else {
                 self.Pause();
+                // do not re-enable automatically
+                self.itemButtonClicked = true;
             }
         };
 
