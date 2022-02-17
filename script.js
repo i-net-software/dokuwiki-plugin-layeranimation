@@ -414,9 +414,12 @@
             $.each(self.layer, function(index)
             {
                 var currentLayer = this;
+                this.elem.css('height', ''); // Reset for new cycle
+
                 var setHeight = function() {
                     var layerHeight = 0;
                     $.each(currentLayer.items, function(){
+                        this.elem.css('height', ''); // Reset for new cycle
                         layerHeight = Math.max( layerHeight, this.elem.height() );
                     });
 
