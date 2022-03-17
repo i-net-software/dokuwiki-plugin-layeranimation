@@ -469,6 +469,10 @@
 
         this.activationStatus = function(activate) {
 
+            if ( ! self.layerList ) {
+                return;
+            }
+
             self.togglePlayState( activate );
 
             // Layer selection list
