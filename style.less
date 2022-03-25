@@ -144,10 +144,10 @@ div.dokuwiki .layeranimation {
             background: #49473E;
             color: #fff;
 
-            width: 15px;
-            height: 15px;
+            width: 1.3em;
+            height: 1.3em;
 
-            font-size: 9px;
+            font-size: 0.8em;
             text-align: center;
 
             padding: 0px;
@@ -156,6 +156,8 @@ div.dokuwiki .layeranimation {
             list-style: none;
 
             cursor: pointer;
+            
+            line-height: 1.3em;
 
             &:hover {
                 background-color: #577B5D;
@@ -167,11 +169,12 @@ div.dokuwiki .layeranimation {
 
             &.play-pause, &.play-pause.active:hover {
                 background-image: url('images/play-pause.gif');
-                background-position: 1px 1px;
+                background-position: 0 0;
+                background-size: 1.3em auto;
             }
 
             &.play-pause:hover, &.play-pause.active {
-                background-position: 1px 13px;
+                background-position: 0 100%;
             }
 
             .layeranimation ul.layeranimation_layer li.play-pause.active {

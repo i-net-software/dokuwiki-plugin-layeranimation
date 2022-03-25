@@ -329,7 +329,7 @@
 
                     self.layer.push(innerLayer);
 
-                    var layerListItem = $('<li/>').text(self.layer.length).attr('title', 'skip to layer ' + self.layer.length).addClass(self.layer.length <= 1 ? 'active' : '');
+                    var layerListItem = $('<li/>').text(self.layer.length).attr('title', 'skip to page ' + self.layer.length).addClass(self.layer.length <= 1 ? 'active' : '');
 
                     new self.layerClick(layerListItem);
                     self.layerList.append(layerListItem);
